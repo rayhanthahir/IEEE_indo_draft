@@ -1,0 +1,315 @@
+\documentclass[journal]{IEEEtran}
+
+% *** PAKET SITASI ***
+\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{adjustbox} % Untuk penyesuaian ukuran tabel
+\usepackage{array}
+
+\makeatletter
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+  {1.5ex \@plus 0.5ex \@minus 0.2ex}%
+  {0.5ex \@plus 0.2ex}%
+  {\normalfont\normalsize\bfseries}}
+
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+  {0.5ex \@plus 0.5ex \@minus 0.2ex}%
+  {0.2ex \@plus 0.2ex}%
+  {\normalfont\normalsize\bfseries}}
+\makeatother
+
+\DeclareCaptionFont{custom}{\normalfont\scshape}
+
+% Mengatur caption tabel
+\captionsetup[table]{
+  font=custom,
+  labelsep=period,  % Mengganti label separator menjadi titik
+  justification=centering,
+  textfont=sc,
+  name=Tabel,  % Mengubah nama dari Table menjadi Tabel
+}
+
+% ** KONFIGURASI CAPTION **
+\captionsetup[figure]{name=Gambar}
+\renewcommand{\appendixname}{Lampiran}
+\renewcommand{\refname}{Referensi}
+
+% *** PAKET UTILITAS MISC ***
+% (Paket yang disarankan dapat dimuat di sini jika diperlukan)
+
+% *** PAKET TERTEMPATKAN GRAFIS ***
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % nyatakan jalur ke file grafik Anda
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % dan ekstensi mereka sehingga Anda tidak perlu menyebutkannya dengan
+  % setiap instance dari \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % opsi lain jika tidak menggunakan pdftex
+  % \usepackage[dvips]{graphicx}
+  % nyatakan jalur ke file grafik Anda
+  % \graphicspath{{../eps/}}
+  % dan ekstensi mereka sehingga Anda tidak perlu menyebutkannya dengan
+  % setiap instance dari \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+
+% *** PAKET MATEMATIKA ***
+% \usepackage{amsmath}
+% Paket populer dari American Mathematical Society
+
+% *** PAKET LIST SPESIALISASI ***
+% \usepackage{algorithmic}
+% Untuk mendeskripsikan algoritma
+
+% *** PAKET PENYUSUNAN ***
+% \usepackage{array}
+% Untuk memperbaiki lingkungan array dan tabular
+
+% *** PAKET SUBFIGUR ***
+% \ifCLASSOPTIONcompsoc
+%   \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+% \else
+%   \usepackage[caption=false,font=footnotesize]{subfig}
+% \fi
+
+% *** PAKET FLOAT ***
+% \usepackage{fixltx2e}
+% Memperbaiki beberapa masalah dalam kernel LaTeX2e
+
+% *** PAKET URL ***
+% \usepackage{url}
+% Untuk memformat URL dengan benar
+
+% *** DEFINISI LINGKUNGAN ABSTRAK DAN KATA KUNCI ***
+\newenvironment{abstrak}
+  {\noindent\textbf{Abstrak—}}  
+  {\par\vspace{0.5em}}
+
+\newenvironment{kata_kunci}
+  {\noindent\textbf{Kata kunci—}}  
+  {\par\vspace{1em}}
+
+\begin{document}
+
+\title{Deteksi Stance dan Analisis Time Series pada Masa Pemilihan Pendahuluan dan Kaukus Presiden Amerika Serikat 2024 di X (Twitter)}
+
+\author{Muhammad Rayhan Putra Thahir, Muhamad Koyimatu}
+
+\markboth{Jurnal IEEE untuk Perangkat dan Sistem}{Rayhan: Deteksi Stance dan Analisis Time Series}
+
+\maketitle
+
+\begin{abstrak}
+Platform X memainkan peran penting dalam penyebaran aspirasi politik dan informasi terkait tokoh politik, terutama selama masa pemilihan umum. Media sosial ini juga dapat memicu polarisasi politik, memisahkan pengguna ke dalam kelompok-kelompok dengan pandangan yang berbeda, seperti yang terjadi pada pemilihan presiden Amerika Serikat (AS) 2020, puncaknya pada kerusuhan Gedung Kapitol tahun 2021 yang dipicu oleh Donald Trump melalui platform X.
+
+Untuk memahami polarisasi politik berdasarkan \textit{stance} pengguna platform X selama masa pemilihan presiden AS, penelitian ini menggunakan \textit{fine-tuning pretrained model} berbasis Transformers, yaitu BERT, RoBERTa, dan DistilBERT pada \textit{dataset P-Stance} yang mengandung 15.249 \textit{tweet} dengan dua kelas \textit{stance}: \textit{favor} dan \textit{against}. Model RoBERTa dengan \textit{learning rate} $2 \times 10^{-5}$, \textit{batch size} 16, dan \textit{epoch} 10 menunjukkan performa terbaik dengan \textit{macro-F1} sebesar 0,7769.
+
+Model ini kemudian digunakan untuk klasifikasi \textit{stance} otomatis pada \textit{tweet} selama pemilihan pendahuluan dan kaukus presiden AS 2024, menghasilkan 15.744 \textit{tweet favor} dan 17.234 \textit{tweet against} terhadap Joe Biden, serta 27.543 \textit{tweet favor} dan 31.447 \textit{tweet against} terhadap Donald Trump. Analisis frekuensi mengungkapkan lonjakan \textit{tweet} terkait hari pelaksanaan pemilihan, dengan tren serupa antara kedua target karena jadwal pemilihan yang berdekatan, meskipun jumlah \textit{tweet} terkait Trump lebih banyak.
+\end{abstrak}
+
+\begin{kata_kunci}
+    polarisasi politik, platform X, pemilihan pendahuluan, kaukus, deteksi \textit{stance}, BERT, RoBERTa, DistilBERT, \textit{fine-tuning}, analisis frekuensi \textit{tweet}, analisis \textit{time-series}.
+\end{kata_kunci}
+
+\begin{abstract}
+    Platform X plays an important role in spreading political aspirations and information about political figures, especially during elections. It can also trigger political polarization, separating users into groups with different views, as happened in the 2020 United States (US) presidential election, culminating in the 2021 Capitol riots triggered by Donald Trump through platform X.
+
+    To understand political polarization based on the stance of platform X users during the US presidential election, this study uses Transformers-based pretrained models, namely BERT, RoBERTa, and DistilBERT for fine-tuned for stance detection using P-Stance dataset containing 15,249 \textit{tweets} with two stance classes: favor and against. RoBERTa model with 2e-5 learning rate, 16 batch size, and 10 epoch showed the best performance with a macro-F1 score of 0.7769.
+    
+    The model was then used for automatic stance classification on tweets during the 2024 US presidential primaries and caucuses, resulting in 15,744 tweets favoring and 17,234 tweets against Joe Biden, and 27,543 tweets favoring and 31,447 tweets against Donald Trump. Frequency analysis revealed a spike in tweets frequency related to the day of the election, with similar trends between the two targets due to the close election schedule, although the number of tweets related to Trump was greater.
+\end{abstract}
+
+\begin{IEEEkeywords}
+    political polarization, platform X, primaries, caucuses, \textit{stance} detection, BERT, RoBERTa, DistilBERT, \textit{fine-tuning}, \textit{tweet} frequency analysis, \textit{time-series} analysis.
+\end{IEEEkeywords}
+
+\section{Pendahuluan}
+\label{sec:introduction}
+
+Pemilihan umum presiden Amerika Serikat (AS) (\textit{general election}) umumnya diawali dengan pemilihan delegasi kandidat presiden dari setiap partai politik melalui tahap pemilihan pendahuluan atau kaukus. Pemilihan pendahuluan (\textit{primary election}) merupakan pemilihan kandidat presiden dari setiap partai politik melalui pemungutan suara anonim oleh masyarakat, sementara pemilihan kaukus merupakan pemilihan kandidat presiden berdasarkan hasil pertemuan dan pemungutan suara internal anggota partai presiden terkait \cite{jeremias2021primary}. Pemilihan pendahuluan dan kaukus dilaksanakan untuk perebutan delegasi elektoral sebanyak mungkin yang dimenangkan melalui pemilihan di setiap negara bagian oleh kandidat presiden dari masing-masing partai. Delegasi elektoral berperan untuk menominasikan kandidat presiden perwakilan partai terkait pada konvensi partai nasional. Situs resmi pemerintah AS mengumumkan bahwa pemilihan umum presiden AS 2024, yang akan diselenggarakan pada 5 November 2024, saat ini telah memasuki tahap pemilihan pendahuluan dan kaukus pada setiap partai \cite{usagov2024}. Pada tanggal 13 Maret, Donald Trump dan Joe Biden dipastikan menjadi kandidat presiden dari partai Republik dan Demokrat untuk pemilihan umum presiden AS 2024 setelah masing-masing mencapai jumlah delegasi elektoral minimum yang diperlukan \cite{abcnews2024}.
+
+Media sosial merupakan salah satu platform yang dapat digunakan untuk menyebarkan aspirasi, pandangan politik, serta informasi-informasi penting yang berhubungan dengan tokoh politik tertentu. Pada masa pemilihan umum, media sosial dapat dijadikan sebagai langkah awal untuk membangun basis pendukung dalam pendirian politik tertentu \cite{rajab2017social}. Kendati demikian, pemanfaatan media sosial untuk membangun basis pendukung politik tertentu dapat memicu polarisasi politik yang menyebabkan perpecahan masyarakat menjadi beberapa kelompok dengan perbedaan pandangan atau pendirian \cite{garcia2015ideological}. Salah satu contoh akibat dari memuncaknya polarisasi politik dapat dilihat pada kerusuhan pada 6 Januari 2021 di Gedung Kapitol, yang dilakukan sebagai bentuk protes keras terhadap hasil pemilihan presiden AS 2020 yang dimenangkan oleh kandidat partai Demokrat, Joe Biden \cite{jost2022cognitive}. Donald Trump menggunakan platform X untuk menginisiasi dan mendorong pendukungnya untuk mengepung Gedung Kapitol, yang akhirnya menyebabkan perseteruan antara pendukung Trump dan aparat keamanan \cite{bizel2023political}.
+
+Berdasarkan kejadian pengepungan kapitol, terbukti bahwa platform X terbukti dapat memfasilitasi penguatan basis pendukung kandidat politik tertentu melalui pengutaraan opini yang mendukung atau menentang kandidat politik tertentu \cite{stolee2018twitter}. Untuk memperdalam pemahaman mengenai seberapa besar basis pendukung selama masa pemilihan umum di platform X, dapat dilakukan deteksi \textit{stance} pada \textit{tweet} yang diunggah selama masa pemilihan umum berlangsung \cite{grimminger2021hate}. Selain itu, \cite{garcia2015ideological} menyatakan bahwa polarisasi pengguna media sosial berdasarkan pendirian politik (\textit{stance}) akan meningkat seiring mendekatnya waktu pemilihan umum, sehingga penerapan deteksi \textit{stance} dapat menjadi salah satu metode untuk memahami pengaruh pemilihan umum terhadap polarisasi berdasarkan pendirian politik (\textit{stance}) pengguna platform X. Salah satu metode untuk melakukan deteksi \textit{stance} adalah penerapan \textit{pretrained model} berbasis Transformers, yaitu \textit{Bidirectional Encoder Representations from Transformers} (BERT), \textit{Distiled version of BERT} (DistilBERT) dan \textit{Robustly optimized BERT pretraining approach} (RoBERTa) yang telah melalui proses \textit{fine-tuning}, sehingga mampu melakukan tugas deteksi \textit{stance} pada data teks.
+
+BERT merupakan model yang telah dilatih pada data tidak berlabel untuk memahami representasi kata dengan menggabungkan konteks kata dari arah kiri dan kanan pada setiap lapisan \cite{devlin2018bert}. Model yang dihasilkan pada proses ini dapat dilatih kembali (\textit{fine-tuned}) untuk melakukan tugas spesifik tertentu selama model diberikan minimal satu \textit{layer output} tambahan. Pengembangan lebih lanjut dari model berbasis BERT telah menghasilkan model-model baru, seperti DistilBERT dan RoBERTa dengan modifikasi paramater dan data latih, sehingga menghasilkan model baru yang dapat menyaingi efisiensi dan performa BERT \cite{sanh2019distilbert, liu2019roberta}.
+
+Penelitian ini menggunakan pendekatan \textit{fine-tuning} \textit{pretrained model} berbasis Transformers, yaitu BERT, DistilBERT, dan RoBERTa untuk menemukan model dengan performa terbaik dalam tugas deteksi \textit{stance} pada data teks berkonteks politik. Model dengan performa terbaik kemudian digunakan kembali pada klasifikasi \textit{stance} otomatis yang bertujuan untuk melabeli data \textit{tweet} pada masa pemilihan pendahuluan dan kaukus presiden AS 2024 berdasarkan \textit{stance} yang terkandung di dalamnya. Penelitian ini menggunakan data hasil klasifikasi \textit{stance} otomatis dalam analisis \textit{time series} untuk memahami tren polarisasi politik pengguna X berdasarkan \textit{stance} pada kandidat presiden AS yang diekspresikan dalam \textit{tweet} pada masa pemilihan pendahuluan dan kaukus presiden AS 2024.
+
+\section{Metodologi}
+\label{sec:metodologi}
+Penelitian yang dilakukan mengadopsi metodologi yang diterapkan dalam penelitian terdahulu mengenai penggunaan model BERT untuk analisis sentimen dan klasifikasi sentimen otomatis pada \textit{dataset tweet} pasar saham \citep{sousa2019bert}. Metode yang diusulkan oleh \cite{sousa2019bert} menggunakan model BERT untuk mengekstrak fitur-fitur teks penting untuk klasifikasi sentimen. Tahap ini dilanjutkan dengan klasifikasi sentimen otomatis pada data baru untuk memprediksi pengaruh sentimen dari \textit{tweet} terhadap \textit{Dow Jones Index} (DJI). Penelitian ini mengadopsi metode penelitian terdahulu untuk tugas deteksi \textit{stance} dan klasifikasi \textit{stance} otomatis pada masa pemilihan pendahuluan dan kaukus presiden Amerika Serikat 2024.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.1\textwidth]{BAB-3/metode_penelitian_SHORT_VER.png}
+    \caption{\textit{Flowchart} dari Metode Penelitian}
+    \label{fig:metode_penelitian}
+\end{figure}
+
+\subsection{\textit{Data Gathering}}
+Tahap pengumpulan data dilakukan dengan mempertimbangkan hasil pemilihan pendahuluan dan kaukus presiden Amerika Serikat (AS) 2024, yang didominasi oleh kemenangan Joe Biden dan Donald Trump pada masing-masing partai \citep{abcnews2024}. Dominasi kemenangan dari kedua calon tersebut menjadi alasan penelitian ini mengembangkan model deteksi \textit{stance} menggunakan \textit{dataset} yang mengandung \textit{stance} mendukung atau menentang terhadap target Biden dan Trump. Pengumpulan \textit{dataset} penelitian dilakukan untuk mendapatkan dua jenis \textit{dataset} berbeda dan dengan dua tujuan berbeda yaitu: 
+\begin{enumerate}
+    \item Data untuk \textit{fine-tuning pretrained model} berbasis Transformers, yaitu BERT, DistilBERT, dan RoBERTa pada tugas deteksi \textit{stance}. \textit{Dataset P-Stance} dipilih untuk tahap ini karena memiliki label kelas \textit{stance}, yaitu \textit{favor} dan \textit{against} terhadap dua target, yaitu Biden dan Trump. 
+    \item Data \textit{tweet} untuk klasifikasi \textit{stance} otomatis dan analisis \textit{time series} berdasarkan \textit{stance} yang terkandung didalamnya. Data merupakan \textit{tweet} politik pada masa pemilihan pendahuluan dan kaukus presiden AS 2024 selama bulan Maret yang belum memiliki label \textit{stance}. Data dikumpulkan melalui proses \textit{data crawling} dengan ketentuan pengumpulan pada Tabel \ref{tab:kata_kunci}.
+\end{enumerate}
+
+\begin{table}[h]
+\captionsetup{justification=centering,singlelinecheck=false,position=top}
+\caption{Ketentuan Pencarian Tweet Bulan Maret Masa Pendahuluan dan Kaukus 2024}% Format kapital
+\centering
+\begin{tabular}{|>{\raggedright\arraybackslash}m{2cm}|>{\raggedright\arraybackslash}m{3.5cm}|>{\centering\arraybackslash}m{2cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Target}} & \multicolumn{1}{|c|}{\textbf{Kata Kunci}} & \textbf{Jumlah Tweet} \\
+\hline
+Joe Biden & (primary OR caucus OR primaries OR caucuses) AND biden & 34.723  \\ % Gantilah angka ini dengan data yang relevan
+\hline
+Donald Trump & (primary OR caucus OR primaries OR caucuses) AND trump & 59.520  \\ % Gantilah angka ini dengan data yang relevan
+\hline
+\end{tabular}
+\label{tab:kata_kunci}
+\end{table}
+
+\subsection{\textit{Data Understanding}}
+% \begin{enumerate}[left=0pt]
+\noindent\subsubsection{\textit{Feature Analysis}}
+% \hspace{1.5em} % Menambahkan indentasi ke konten paragraf
+Pada tahap analisis fitur, setiap variabel dalam dataset diidentifikasi untuk memahami perannya dalam konteks penelitian. Deskripsi mendetail diberikan untuk setiap fitur, termasuk tipe data (numerik, kategorikal, teks). Analisis fitur ini membantu dalam menentukan variabel mana yang diperlukan untuk \textit{fine-tuning} tugas deteksi \textit{stance}, serta fitur mana yang mungkin dapat dihilangkan atau digabungkan untuk meningkatkan performa model. Selain itu fitur yang mengandung data teks dianalisis lebih lanjut untuk mengetahui jumlah kata, variasi kata unik, dan variasi karakter unik yang digunakan. Tahap ini juga memberikan dari visualisasi diagram venn untuk menjelaskan distribusi penggunaan kata unik pada setiap \textit{dataset} yang digunakan.
+% \end{enumerate}
+
+
+\subsection{\textit{Data Preprocessing}}
+\textit{Data preprocessing} merupakan tahap pembersihan dan pemrosesan teks (\textit{text preprocessing}) pada data teks yang diperoleh dari tahap sebelumnya. \textit{Data preprocessing} bertujuan untuk menjaga performa pembelajaran mesin agar mencapai hasil yang optimal melalui proses pengubahan dan penyesuaian data teks sesuai kebutuhan pelatihan model. Beberapa teknik \textit{text preprocessing} yang terlibat pada tahap ini meliputi: 
+\subsubsection{\textit{Data Cleaning}} 
+Tahapan ini meliputi  dan pembersihan data duplikat, \textit{case folding}, dan pembatasan variasi karakter. Selain itu, tahapan ini menghapus elemen-elemen pada \textit{tweet} yang tidak diperlukan dalam pemodelan, seperti \textit{user tags} (diawali dengan '@'), tanda topik (diawali dengan '\#'), tautan \textit{link} (diawali dengan 'http'), serta \textit{retweet} (ditandai dengan 'RT').  
+
+\subsubsection{\textit{Lemmatization}} Tahapan ini bertujuan untuk mengurangi dimensionalitas kata melalui konversi kata menjadi bentuk dasarnya (\textit{lemma}). Pengubahan kata menjadi bentuk dasar mengacu pada leksikon tertentu untuk memastikan terkonversi sesuai dengan kelas kata dan makna kata tersebut \citep{hickman2022text}. \textit{Lemmatization }dalam penelitian dilakukan dengan menggunakan leksikon \textit{WordNet} dari \textit{Natural Language Toolkit} (NLTK).
+
+\subsubsection{\textit{Stopword removal}} Tahapan ini bertujuan untuk menghapus kata-kata yang tidak memberikan konteks tambahan pada kalimat. Umumnya kata dalam \textit{stopword} termasuk ke dalam kategori kata penghubung, kata sandang, dan kata keterangan. \textit{Stopword removal} dilakukan menggunakan \textit{library} NLTK dengan modifikasi penambahan variasi kata baru yang akan dihapus pada tahap ini oleh penulis.
+\subsubsection{\textit{Tokenization}}
+Tokenisasi dilakukan untuk memecah teks menjadi unit-unit token untuk dijadikan sebagai input model. Tokenisasi pada \textit{pretrained model} berbasis Transformers melibatkan penggunaan token khusus, seperti token awalan `[CLS]` dan token akhir `[SEP]`, serta token yang menandai kata-kata yang tidak ditemukan dalam kamus. \label{tab:token} menunjukkan hasil konversi data teks menjadi token dan representasi berupa input ID yang dilakukan agar model mampu memahami bahasa natural \citep{devlin2018bert,gao2019target}.
+
+
+\subsection{\textit{Fine-Tuning} Deteksi \textit{Stance}}
+\subsubsection{\textit{Split Dataset}}
+Proses \textit{split dataset} dilakukan untuk memisahkan data menjadi tiga bagian: data pelatihan, data validasi, dan data pengujian dengan rasio 80\%:10\%:10\%. Pelatihan model akan mengikuti strategi \textit{"Merged Dataset"}, yang menggabungkan data \textit{train} dan data \textit{validation} pada target Biden dan Trump, kemudian mengujinya pada data \textit{test} yang mengandung \textit{stance} terhadap setiap target secara terpisah \citep{li2021p}.
+
+\subsubsection{\textit{Build Stance Classifier}}
+Model klasifikasi deteksi \textit{stance} dibangun dengan menambahkan \textit{single layer} baru pada \textit{pretrained model} untuk tugas klasifikasi \textit{stance}. Pada \textit{layer} tambahan yang terletak di akhir, fungsi \textit{softmax} diterapkan untuk memberikan probabilitas bahwa teks diklasifikasikan mengandung \textit{stance} tertentu \citep{gao2019target}. Setelah model melalui tahap \textit{fine-tuning}, \textit{encoder layer} pada \textit{pretrained model} akan menyesuaikan bobot token sesuai dengan pengetahuan baru yang didapatkan. Penelitian ini menggunakan 3 jenis model berbasis Transformers yaitu \textit{bert-base-uncased} (BERT), \textit{roberta-base}, dan \textit{distilbert-base-uncased} (distilBERT) pada tahap \textit{fine-tuning} dan menerapkan pengetahuan yang didapatkan dari \textit{fine-tuning} untuk klasifikasi \textit{stance} otomatis.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{BAB-4/bert_viz_bab_4.png}
+    \captionsetup{justification=centering}
+    \caption{Arsitektur \textit{Pretrained Model} Berbasis Transformers}
+    \label{fig:example}
+\end{figure}
+
+\subsubsection{\textit{Hyperparameter Tuning}}
+\textit{Hyperparameter tuning} dilakukan menggunakan metode \textit{grid search} pada \textit{framework} Optuna. Penerapan \textit{grid search} dilakukan dengan mencoba setiap kombinasi \textit{hyperparameter} dalam ruang nilai tertentu untuk mencari \textit{hyperparameter} paling optimal. \textit{Grid search} melibatkan 3 parameter paling berpengaruh dalam proses \textit{fine-tuning pretrained model}, yaitu  \textit{learning rate}, \textit{batch size}, dan \textit{max epoch} \citep{Koto2020}. Tabel \ref{tab:bab3_param_tuning} menunjukkan variasi nilai \textit{hyperparameter} dengan total kombinasi sebanyak 3 × 2 × 2 = 12 (\textit{learning rate} × \textit{max epoch} × \textit{batch size}), yang menghasilkan total 12 × 3 = 36 percobaan. Percobaan ini mencakup semua kombinasi pada 3 \textit{pretrained model} yang digunakan. Pemilihan \textit{hyperparameter} terbaik didasarkan pada nilai \textit{evaluation loss} selama \textit{fine-tuning}. Penentuan \textit{hyperparameter} yang menghasilkan \textit{evaluation loss} terkecil dilakukan dengan mengatur Optuna untuk melakukan \textit{tuning} menggunakan strategi "\textit{minimize}".
+
+\begin{table}[H]
+\caption{Nilai pada Hyperparameter Tuning}
+\centering
+\begin{tabular}{|>{\raggedright\arraybackslash}l|>{\centering\arraybackslash}m{5cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Parameter}} & \textbf{Nilai} \\
+\hline
+Learning Rate & \(\scriptsize{1 \times 10^{-6}, 1 \times 10^{-5}, 2 \times 10^{-5}}\) \\
+\hline
+Batch Size & 16, 32 \\
+\hline
+Max Epoch & 5, 10 \\
+\hline
+\end{tabular}
+\label{tab:bab3_param_tuning}
+\end{table}
+
+Dalam Tabel \ref{tab:parameter_tuning}, beberapa \textit{fixed hyperparameter} dipilih untuk optimalisasi model. \textit{Max Length} ditetapkan pada 128 untuk mengontrol panjang input teks. \textit{Early Stopping} diaktifkan dengan parameter 3 untuk menghentikan pelatihan jika tidak ada perbaikan pada \textit{evaluation loss} dalam 3 \textit{epoch}, yang ditujukan untuk mencegah \textit{overfitting}. \textit{Load Best Model at the End} memastikan model terbaik digunakan untuk evaluasi akhir. \textit{Greater is Better} diatur ke False, sehingga nilai \textit{evaluation loss} yang lebih rendah dianggap lebih baik sebagai metrik penilaian model.
+
+
+\begin{table}[H]
+\caption{Fixed Hyperparameter}
+\centering
+\begin{tabular}{|>{\raggedright\arraybackslash}m{3.5cm}|>{\centering\arraybackslash}m{4cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Parameter}} & \multicolumn{1}{c|}{\textbf{Nilai}} \\
+\hline
+Optimizer & Adam \\
+\hline
+Dropout & 0,1 \\
+\hline
+Max Length & 128 \\
+\hline
+Early Stopping & True, At 3 \\
+\hline
+Load Best Model at the End & True \\
+\hline
+Greater is Better & False \\
+\hline
+Metric for Best Model & evaluation loss \\
+\hline
+\end{tabular}
+\label{tab:parameter_tuning}
+\end{table}
+
+
+\subsection{Evaluasi Performa}
+Evaluasi performa dilakukan dengan menggunakan strategi "\textit{Merged Dataset}", yaitu pengujian secara terpisah menggunakan data \textit{test P-Stance} yang menargetkan Biden dan Trump untuk memperoleh nilai \textit{F1} dari pengujian setiap target. Nilai \textit{F1} dari setiap target kemudian dirata-ratakan untuk mendapatkan nilai \textit{macro-F1} yang merepresentasikan performa keseluruhan model dalam tugas deteksi \textit{stance} pada target Biden dan Trump. Model dengan nilai \textit{macro-F1} tertinggi dari pengujian dijadikan sebagai acuan pemilihan model pada tahap klasifikasi \textit{stance} otomatis. 
+
+\subsection{Klasifikasi \textit{Stance} Otomatis}
+Tahap ini menerapkan konsep klasifikasi teks otomatis dengan menggunakan model yang memiliki nilai \textit{macro-F1} terbaik dari tahap sebelumnya untuk mendeteksi \textit{stance} dalam data \textit{tweet} bulan Maret 2024 selama masa pendahuluan dan kaukus. Hasil dari proses klasifikasi \textit{stance} otomatis merupakan data \textit{tweet} masa pemilihan pendahuluan dan kaukus selama bulan Maret 2024 berlabel \textit{stance} dengan dua kelas, yaitu mendukung target (\textit{favor}) dan menentang target (\textit{against}). Data berlabel selanjutnya digunakan untuk analisis \textit{time series} pada tahapan selanjutnya.
+
+\subsection{Analisis \textit{Time Series}}
+Analisis \textit{time series} berdasarkan \textit{stance} dilakukan menggunakan metode frekuensi. Analisis frekuensi dilakukan menggunakan dua jenis data, yaitu data hari diunggahnya \textit{tweet} pada platform X dan data label \textit{stance} dari \textit{tweet} tersebut. Analisis \textit{time series} bertujuan untuk mengidentifikasi tren polarisasi politik dari lonjakan atau penurunan frekuensi \textit{tweet} berdasarkan kelas \textit{stance} per hari selama bulan Maret masa pemilihan pendahuluan dan kaukus.
+
+\subsection{\textit{Experimental Setup}}
+Penelitian ini mengeksekusi model menggunakan prosesor AMD EPYC 7702 64-Core dengan GPU 2x RTX 4080S RAM 16GB pada Windows 10 64-bit. Anaconda 2023.03-1 dengan Python 3.10.9 digunakan untuk pengembangan dan eksekusi pada Visual Studio Code 1.91.1 sebagai \textit{Integrated Development Environment} (IDE). Data yang digunakan untuk \textit{fine-tuning} diperoleh dari penelitian \cite{li2021p}, sementara data untuk klasifikasi \textit{stance} otomatis diperoleh dari platform X melalui proses \textit{data crawling} menggunakan Tweet Harvest 2.6.0. Pengembangan model melibatkan beberapa \textit{library} Python, yaitu Seaborn 0.12.2 dan Matplotlib 3.7.0 untuk visualisasi data, NLTK 3.7 untuk pembersihan data, Scikit-learn 1.2.1, Optuna 3.6.1, dan Transformers 4.39.3 untuk \textit{fine-tuning} model. 
+
+\section{Hasil dan Pembahasan}
+\label{sec:hasil}\
+\begin{table}[h]
+\captionsetup{justification=centering,singlelinecheck=false,position=top}
+\caption{Ketentuan Pencarian Tweet Bulan Maret Masa Pendahuluan dan Kaukus 2024}% Format kapital
+\centering
+\begin{tabular}{|>{\raggedright\arraybackslash}m{2cm}|>{\raggedright\arraybackslash}m{3.5cm}|>{\centering\arraybackslash}m{2cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Target}} & \multicolumn{1}{|c|}{\textbf{Kata Kunci}} & \textbf{Jumlah Tweet} \\
+\hline
+Joe Biden & (primary OR caucus OR primaries OR caucuses) AND biden & 34.723  \\ % Gantilah angka ini dengan data yang relevan
+\hline
+Donald Trump & (primary OR caucus OR primaries OR caucuses) AND trump & 59.520  \\ % Gantilah angka ini dengan data yang relevan
+\hline
+\end{tabular}
+\label{tab:kata_kunci}
+\end{table}
+
+
+\section{Kesimpulan}
+\label{sec:conclusion}
+
+Tulis kesimpulan di sini.
+
+\appendices
+\label{sec:appendixA}
+
+
+% \section*{Ucapan Terima Kasih}
+
+% Kami ingin mengucapkan terima kasih kepada...
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibtex/bib/IEEEexample}
+\end{document}
